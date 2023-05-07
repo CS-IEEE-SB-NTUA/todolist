@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit To-do</title>
+  </head>
+  <body>
+    <h1>Edit To-do</h1>
+    <form action="/todos/{{ todo.id }}" method="POST">
+      <input type="hidden" name="_method" value="PUT">
+      <label for="title">Title:</label>
+      <input type="text" name="title" id="title" value="{{ todo.title }}" required>
+      <br>
+      <label for="description">Description:</label>
+      <textarea name="description" id="description">{{ todo.description }}</textarea>
+      <br>
+      <label for="completed">Completed:</label>
+      <input type="checkbox" name="completed" id="completed" {% if todo.completed %}checked{% endif %}>
+      <br>
+      <button type="submit">Update to-do</button>
+    </form>
+  </body>
+</html>

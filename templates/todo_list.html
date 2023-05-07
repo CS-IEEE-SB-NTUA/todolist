@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>To-do List</title>
+  </head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+  <body>
+    <h1>To-do List</h1>
+    <ul>
+      {% for todo in todos %}
+        <li>
+          {{ todo.title }}
+          <a href="{{ url_for('edit_todo_form', todo_id=todo.id) }}">(edit)</a>
+          <form action="{{ url_for('delete_todo', todo_id=todo.id) }}" method="POST" style="display: inline">            
+            <input type="hidden" name="_method" value="DELETE">
+            <button class="delete-btn" onclick="delete_todo(todo.id)">X</button>
+          </form>
+          <form action="{{ url_for('update_todo', todo_id=todo.id) }}" method="POST" style="display: inline">            
+            <input type="hidden" name="_method" value="PUT">
+           <input type="checkbox" name="completed" id="completed" {% if todo.completed %}checked{% endif %} onclick="update_todo(todo.id)">
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+    <a href="/todos/new">Add a new to-do</a>
+
+  </body>
+</html>
